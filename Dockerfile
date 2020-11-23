@@ -5,6 +5,8 @@ EXPOSE 80
 RUN cd /root
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello
 RUN cd boxfuse-sample-java-war-hello
-RUN mvn package
-RUN boxfuse run target/hello-1.0.war
-CMD ["/bin/bash"]
+RUN mvn -f boxfuse-sample-java-war-hello/pom.xml clean package
+RUN cp boxfuse-sample-java-war-hello/target/hello-1.0.war /var/lib/tomcat9/webapps/
+#ENTRYPOINT ["/usr/share/tomcat9/bin/catalina.sh", "run"]
+#ENTRYPOINT ["java", "-jar", "boxfuse-sample-java-war-hello/target/hello-1.0.war"]
+#CMD ["/bin/bash"]
